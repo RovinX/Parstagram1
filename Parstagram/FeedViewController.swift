@@ -9,10 +9,12 @@
 import UIKit
 import Parse
 import AlamofireImage
+import MessageInputBar
 
 class FeedViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     @IBOutlet weak var tableView: UITableView!
+    let commentBar = MessageInputBar()
     
     var posts = [PFObject]()
     
@@ -21,9 +23,22 @@ class FeedViewController: UIViewController, UITableViewDelegate, UITableViewData
         
         tableView.delegate = self
         tableView.dataSource = self
+        
+        tableView.keyboardDismissMode = .interactive
+        
 
         // Do any additional setup after loading the view.
     }
+    
+    override var inputAccessoryView: UIView? {
+        return commentBar
+    }
+    
+    override var canBecomeFirstResponder: Bool {
+        return true
+    }
+    
+    
     override func viewDidAppear(_ animated: Bool) {
     
         super.viewDidAppear(animated)
